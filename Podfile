@@ -6,5 +6,7 @@ target 'weatherapp' do
   use_frameworks!
 
   # Pods for weatherapp
+  pod 'Alamofire'
+  pod 'SwiftyJSON'
 
 end
