@@ -96,7 +96,11 @@
                         <viewLayoutGuide key="safeArea" id="J93-be-bcM"/>
                     </view>
                     <navigationItem key="navigationItem" title="Weather" id="bkY-GF-rFL">
-                        <barButtonItem key="rightBarButtonItem" title="Change Location" id="Q0t-MI-8cy"/>
+                        <barButtonItem key="rightBarButtonItem" title="Change Location" id="Q0t-MI-8cy">
+                            <connections>
+                                <segue destination="SJI-bH-UKo" kind="show" id="pC9-K2-LwO"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="currentTempLabel" destination="P4i-vV-QEW" id="wcE-50-ojU"/>
@@ -109,6 +113,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3s-GV-eOy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1062" y="-56"/>
+        </scene>
+        <!--Change Location-->
+        <scene sceneID="Va5-dh-P9z">
+            <objects>
+                <viewController title="Change Location" id="SJI-bH-UKo" customClass="LocationSelectViewController" customModule="weatherapp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OSu-yF-BGB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hRw-Y5-NdA">
+                                <rect key="frame" x="0.0" y="104" width="375" height="56"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="SJI-bH-UKo" id="pqV-nZ-3B0"/>
+                                </connections>
+                            </searchBar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="1Pa-S7-h6Q"/>
+                    </view>
+                    <connections>
+                        <segue destination="j1s-RG-8zN" kind="unwind" identifier="unwindToMainScreen" unwindAction="unwindToMainScreenWithSegue:" id="yMa-kH-fQa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cmq-qu-dAz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="j1s-RG-8zN" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1837" y="-180"/>
         </scene>
     </scenes>
 </document>

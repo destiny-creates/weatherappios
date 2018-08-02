@@ -9,7 +9,7 @@
 import UIKit
 
 class weatherViewController: UIViewController {
-
+    
     @IBOutlet weak var locationLabel: UILabel!
     
     @IBOutlet weak var iconLabel: UILabel!
@@ -20,18 +20,26 @@ class weatherViewController: UIViewController {
     
     @IBOutlet weak var lowTempLabel: UILabel!
     
+    var weatherData: WeatherData! {
+        didSet {
+            iconLabel.text = weatherData.condition.icon
+            currentTempLabel.text = "\(weatherData.termperature)°"
+            lowTempLabel.text = "\(weatherData.low)°"
+        }
+    }
+    
+    var geocodingData: GeocodingData! {
+        didSet {
+            locationLabel.text = geocodingData.formattedAddress
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         setupUIWithoutData()
         
-        let apiManager = APIManager()
-        apiManager.geocode(address: "louisville", onSuccess: { (GeocodingData) in
-            print(GeocodingData.formattedAddress)
-            print(GeocodingData.latitude)
-            print(GeocodingData.longitude)
-        }) { (error) in
-        }
+        
         
     }
     
@@ -42,12 +50,14 @@ class weatherViewController: UIViewController {
         highTempLabel.text = "-"
         lowTempLabel.text = "-"
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    @IBAction func unwindToMainScreen(segue: UIStoryboardSegue) {
+        
+    }
+    
 }
 

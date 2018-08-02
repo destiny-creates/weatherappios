@@ -15,13 +15,15 @@ class APIManager {
     
     let googleBaseURL = "https://maps.googleapis.com/maps/api/geocode/json?address="
     
+    let darkSkyBaseURL = "https://api.darksky.net/forecast/"
+    
     enum APIError: Error {
         case noData
         case noResponse
         case invalidData
     }
     func geocode(address: String, onSuccess: @escaping (GeocodingData) -> Void, onError: @escaping (Error) -> Void ) {
-        //https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=[address] [API Key]
+        
         let url = "\(googleBaseURL)\(address)\(apiKeys.googleKey)"
         
         Alamofire.request(url).responseJSON { response in
@@ -39,6 +41,24 @@ class APIManager {
             }
         }
         
+    }
+    func getWeather(lattitude: Double, longitude: Double, onSuccess: @escaping (WeatherData) -> Void, onError: @escaping (Error) -> Void) {
+        let url = "\(darkSkyBaseURL)\(apiKeys.darkSkyKey)\(lattitude),\(longitude)"
+        
+        Alamofire.request(url).responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value)
+                
+                guard let weatherData = WeatherData(json: json) else {
+                    onError(APIError.invalidData)
+                    return
+                }
+                onSuccess(weatherData)
+            case .failure(let error):
+                onError(error)
+            }
+        }
     }
 }
 
